@@ -1,4 +1,3 @@
-
 def create_plans_table(cursor):
     create_plans_table_query = '''CREATE TABLE `plans` (
             `id` INT PRIMARY KEY AUTO_INCREMENT,
@@ -6,9 +5,3 @@ def create_plans_table(cursor):
             `duration_minutes` INT NOT NULL)'''
     cursor.execute(create_plans_table_query)
     print('Created plans table')
-
-
-
-
-
-
