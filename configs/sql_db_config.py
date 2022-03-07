@@ -1,22 +1,31 @@
 import mysql.connector
 from mysql.connector import errorcode
+from models.plans import create_plans_table
 
 
-class SQL_DB_Config:
+class SqlDbConfig:
     def __init__(self):
         self.cursor = None
         self.cnx = None
-        self.DB_NAME = 'WORKOUT_DB'
+        self.DB_NAME = 'workout_db'
 
     def connect_db(self):
         try:
-            self.cnx = mysql.connector.connect(user='root', password='root', host='localhost')
+            print("Connecting to MySQL database...")
+            self.cnx = mysql.connector.connect(user='root', password='tamim123', host='localhost')
             self.cursor = self.cnx.cursor()
             self.cursor.execute("USE {}".format(self.DB_NAME))
             print("Database {} is in use".format(self.DB_NAME))
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_BAD_DB_ERROR:
-                # todo create database
-                print("Something is wrong with your user name or password")
+                self.create_db()
+                create_plans_table(self.cursor)
+            else:
+                print(err.msg)
         finally:
             return self.cursor
+
+    def create_db(self):
+        self.cursor.execute("CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(self.DB_NAME))
+        self.cnx.database = self.DB_NAME
+        print("Database {} is created".format(self.DB_NAME))
