@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 from models.plans import create_plans_table
 from models.exercises import create_exercises_table
+from models.in_exercise_plan import create_in_exercise_plan_table
 
 
 class SqlDbConfig:
@@ -22,6 +23,7 @@ class SqlDbConfig:
                 self.create_db()
                 create_plans_table(self.cursor)
                 create_exercises_table(self.cursor)
+                create_in_exercise_plan_table(self.cursor)
             else:
                 print(err.msg)
         finally:
