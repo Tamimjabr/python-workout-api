@@ -4,6 +4,7 @@ from models.plans import create_plans_table
 from models.exercises import create_exercises_table
 from models.in_exercise_plan import create_in_exercise_plan_table
 from repositories.exercises import insert_exercises
+from repositories.plans import insert_plans
 
 
 class SqlDbConfig:
@@ -15,7 +16,7 @@ class SqlDbConfig:
     def connect_db(self):
         try:
             print("Connecting to MySQL database...")
-            self.cnx = mysql.connector.connect(user='root', password='tamim123', host='localhost')
+            self.cnx = mysql.connector.connect(user='root', password='root', host='localhost')
             self.cursor = self.cnx.cursor()
             self.cursor.execute("USE {}".format(self.DB_NAME))
             print("Database {} is in use".format(self.DB_NAME))
@@ -26,6 +27,7 @@ class SqlDbConfig:
                 create_exercises_table(self.cursor)
                 create_in_exercise_plan_table(self.cursor)
                 insert_exercises(self.cursor)
+                insert_plans(self.cursor)
                 self.cnx.commit()
             else:
                 print(err.msg)
