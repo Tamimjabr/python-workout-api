@@ -38,3 +38,14 @@ class InExercisePlan:
         equipments = self.cursor.fetchall()
         equipments = [equipment[0] for equipment in equipments]
         return equipments
+
+    def list_percentage_of_body_parts_in_plan(self, plan_id):
+        list_percentage_of_body_parts_in_plan_query = '''SELECT separate_body_parts.part as body_part, 
+        separate_body_parts.Number_of_exercises, ROUND((separate_body_parts.Number_of_exercises*100/(SELECT COUNT(
+        exercises.id) AS antal FROM exercises, in_exercise_plan WHERE in_exercise_plan.exercise_id = exercises.id AND 
+        in_exercise_plan.plan_id = {}) ),2)as percentage FROM( SELECT exercises.body_part as part, 
+        COUNT(exercises.id) AS Number_of_exercises FROM in_exercise_plan JOIN exercises ON 
+        in_exercise_plan.exercise_id = exercises.id WHERE in_exercise_plan.plan_id = {} GROUP BY 
+        exercises.body_part) AS separate_body_parts'''.format(plan_id, plan_id)
+        self.cursor.execute(list_percentage_of_body_parts_in_plan_query)
+        return self.cursor.fetchall()
