@@ -1,8 +1,12 @@
+import os
+from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import errorcode
 from models.plans import create_plans_table
 from models.exercises import create_exercises_table
 from models.in_exercise_plan import create_in_exercise_plan_table
+
+load_dotenv()
 
 
 class SqlDbConfig:
@@ -12,7 +16,7 @@ class SqlDbConfig:
         self.in_exercise_plan_repo = in_exercise_plan_repo
         self.cnx = self.create_connection()
         self.cursor = self.create_cursor()
-        self.DB_NAME = 'workout_db'
+        self.DB_NAME = os.getenv('DB_NAME')
 
     def connect_db(self):
         try:
@@ -30,13 +34,14 @@ class SqlDbConfig:
                 self.cnx.commit()
             else:
                 print(err.msg)
-        finally:
-            return self.cursor
+
 
     def create_connection(self):
         try:
             print("Connecting to MySQL database...")
-            return mysql.connector.connect(user='root', password='tamim123', host='localhost')
+            return mysql.connector.connect(user=os.getenv('DB_USER'),
+                                           password=os.getenv('DB_PASSWORD'),
+                                           host=os.getenv('DB_HOST'))
         except Exception as err:
             print(err)
             exit(1)
