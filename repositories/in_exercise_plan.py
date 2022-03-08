@@ -27,5 +27,14 @@ class InExercisePlan:
                                         JOIN exercises ON in_exercise_plan.exercise_id = exercises.id
                                         WHERE in_exercise_plan.plan_id = {}'''.format(plan_id)
         self.cursor.execute(list_exercises_in_plan_query)
-        exercises = self.cursor.fetchall()
+        return self.cursor.fetchall()
 
+    def list_equipments_needed_in_plan(self, plan_id):
+        list_equipments_needed_in_plan_query = '''SELECT DISTINCT exercises.equipment_type
+                                                FROM in_exercise_plan
+                                                JOIN exercises ON in_exercise_plan.exercise_id = exercises.id
+                                                WHERE in_exercise_plan.plan_id = {}'''.format(plan_id)
+        self.cursor.execute(list_equipments_needed_in_plan_query)
+        equipments = self.cursor.fetchall()
+        equipments = [equipment[0] for equipment in equipments]
+        return equipments

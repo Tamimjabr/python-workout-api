@@ -10,5 +10,7 @@ sql_db_config = SqlDbConfig(plans_repo, exercises_repo, in_exercise_plan_repo)
 cursor = sql_db_config.connect_db()
 
 # todo: to call from controller
-in_exercise_plan_repo.list_exercises_in_plan(1)
+print(in_exercise_plan_repo.list_exercises_in_plan(1))
+print(in_exercise_plan_repo.list_equipments_needed_in_plan(1) )
 print('done')
+
