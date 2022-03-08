@@ -3,7 +3,7 @@ from mysql.connector import errorcode
 from models.plans import create_plans_table
 from models.exercises import create_exercises_table
 from models.in_exercise_plan import create_in_exercise_plan_table
-from repositories.exercises import insert_exercises
+from repositories.exercises import Exercise
 from repositories.in_exercise_plan import insert_in_exercise_plan_relation
 from repositories.plans import insert_plans
 
@@ -27,7 +27,6 @@ class SqlDbConfig:
                 create_plans_table(self.cursor)
                 create_exercises_table(self.cursor)
                 create_in_exercise_plan_table(self.cursor)
-                insert_exercises(self.cursor)
                 insert_plans(self.cursor)
                 insert_in_exercise_plan_relation(self.cursor)
                 self.cnx.commit()

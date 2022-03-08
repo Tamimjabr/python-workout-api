@@ -11,6 +11,5 @@ def insert_in_exercise_plan_relation(cursor):
             cursor.execute(insert_in_exercise_plan_query, (int(relation[0]), int(relation[1])))
         except Exception as e:
             print(e)
-            cursor.execute("DROP DATABASE IF EXISTS workout_db")
 
     print('Plans were connected to their exercises successfully')
