@@ -1,7 +1,7 @@
 from helpers.file_reader import read_data_from_file
 
 
-class Exercise:
+class Exercises:
     def __init__(self):
         self.cursor = None
 
