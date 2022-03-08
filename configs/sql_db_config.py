@@ -36,7 +36,7 @@ class SqlDbConfig:
     def create_connection(self):
         try:
             print("Connecting to MySQL database...")
-            return mysql.connector.connect(user='root', password='root', host='localhost')
+            return mysql.connector.connect(user='root', password='tamim123', host='localhost')
         except Exception as err:
             print(err)
             exit(1)

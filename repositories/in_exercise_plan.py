@@ -20,3 +20,12 @@ class InExercisePlan:
                 print(e)
 
         print('Plans were connected to their exercises successfully')
+
+    def list_exercises_in_plan(self, plan_id):
+        list_exercises_in_plan_query = '''SELECT exercises.*
+                                        FROM in_exercise_plan
+                                        JOIN exercises ON in_exercise_plan.exercise_id = exercises.id
+                                        WHERE in_exercise_plan.plan_id = {}'''.format(plan_id)
+        self.cursor.execute(list_exercises_in_plan_query)
+        exercises = self.cursor.fetchall()
+
