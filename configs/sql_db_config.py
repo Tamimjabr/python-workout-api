@@ -3,14 +3,13 @@ from mysql.connector import errorcode
 from models.plans import create_plans_table
 from models.exercises import create_exercises_table
 from models.in_exercise_plan import create_in_exercise_plan_table
-from repositories.exercises import Exercises
-from repositories.in_exercise_plan import insert_in_exercise_plan_relation
 
 
 class SqlDbConfig:
-    def __init__(self, plans_repo, exercises_repo):
+    def __init__(self, plans_repo, exercises_repo, in_exercise_plan_repo):
         self.plans_repo = plans_repo
         self.exercises_repo = exercises_repo
+        self.in_exercise_plan_repo = in_exercise_plan_repo
         self.cnx = self.create_connection()
         self.cursor = self.create_cursor()
         self.DB_NAME = 'workout_db'
@@ -27,7 +26,7 @@ class SqlDbConfig:
                 create_in_exercise_plan_table(self.cursor)
                 self.exercises_repo.insert_exercises()
                 self.plans_repo.insert_plans()
-                insert_in_exercise_plan_relation(self.cursor)
+                self.in_exercise_plan_repo.insert_in_exercise_plan_relation()
                 self.cnx.commit()
             else:
                 print(err.msg)
@@ -37,7 +36,7 @@ class SqlDbConfig:
     def create_connection(self):
         try:
             print("Connecting to MySQL database...")
-            return mysql.connector.connect(user='root', password='tamim123', host='localhost')
+            return mysql.connector.connect(user='root', password='root', host='localhost')
         except Exception as err:
             print(err)
             exit(1)
@@ -46,6 +45,7 @@ class SqlDbConfig:
         cursor = self.cnx.cursor()
         self.plans_repo.set_cursor(cursor)
         self.exercises_repo.set_cursor(cursor)
+        self.in_exercise_plan_repo.set_cursor(cursor)
         return cursor
 
     def create_db(self):
