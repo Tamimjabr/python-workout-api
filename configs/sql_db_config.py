@@ -16,6 +16,7 @@ class SqlDbConfig:
         self.in_exercise_plan_repo = in_exercise_plan_repo
         self.cnx = self.create_connection()
         self.cursor = self.create_cursor()
+
         self.DB_NAME = os.getenv('DB_NAME')
 
     def connect_db(self):
@@ -48,7 +49,7 @@ class SqlDbConfig:
             exit(1)
 
     def create_cursor(self):
-        cursor = self.cnx.cursor()
+        cursor = self.cnx.cursor(dictionary=True)
         self.plans_repo.set_cursor(cursor)
         self.exercises_repo.set_cursor(cursor)
         self.in_exercise_plan_repo.set_cursor(cursor)

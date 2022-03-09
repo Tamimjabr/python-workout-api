@@ -9,6 +9,9 @@ protobuf = "==3.19.4"
 pandas = "*"
 numpy = "*"
 python-dotenv = "*"
+flask = "*"
+requests = "*"
+flask-restful = "*"
 
 [dev-packages]
 

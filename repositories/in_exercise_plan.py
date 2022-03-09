@@ -43,7 +43,6 @@ class InExercisePlan:
                                                 WHERE in_exercise_plan.plan_id = {}'''.format(plan_id)
         self.cursor.execute(list_equipments_needed_in_plan_query)
         equipments = self.cursor.fetchall()
-        equipments = [equipment[0] for equipment in equipments]
         return equipments
 
     def list_percentage_of_body_parts_in_plan(self, plan_id):
