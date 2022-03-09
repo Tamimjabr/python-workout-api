@@ -1,5 +1,5 @@
-import json
 from flask_restful import Resource
+from flask import request
 
 
 class Plans(Resource):
@@ -16,5 +16,13 @@ class ExercisesByPlanId(Resource):
         self.in_exercise_plan_repo = in_exercise_plan_repo
 
     def get(self, plan_id):
-        exercises = self.in_exercise_plan_repo.list_exercises_in_plan(plan_id)
+        exercises = []
+        if request.args.get('datasaver') == 'true':
+            exercises = self.in_exercise_plan_repo.list_exercises_in_plan_data_saver_view(plan_id)
+        else:
+            exercises = self.in_exercise_plan_repo.list_exercises_in_plan(plan_id)
+
         return exercises, 200
+
+
+
