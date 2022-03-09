@@ -1,7 +1,7 @@
-from flask import Flask, request
-from flask_restful import Api, Resource, reqparse, abort
+from flask import Flask
+from flask_restful import Api
 from configs.sql_db_config import SqlDbConfig
-from controllers.workout_controller import Plans as PlansController, ExercisesByPlanId, EquipmentsByPlanId
+from controllers.workout_controller import Plans as PlansController, ExercisesByPlanId, EquipmentsByPlanId, BodyPartsByPlanId
 from repositories.plans import Plans
 from repositories.exercises import Exercises
 from repositories.in_exercise_plan import InExercisePlan
@@ -24,8 +24,9 @@ print(in_exercise_plan_repo.list_exercises_in_plan_data_saver_view(2))
 print('done')
 
 api.add_resource(PlansController, '/plans', resource_class_kwargs={'plans_repo': plans_repo})
-api.add_resource(ExercisesByPlanId, '/plans/<int:plan_id>/exercises', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo} )
-api.add_resource(EquipmentsByPlanId, '/plans/<int:plan_id>/equipments', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo} )
+api.add_resource(ExercisesByPlanId, '/plans/<int:plan_id>/exercises', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo})
+api.add_resource(EquipmentsByPlanId, '/plans/<int:plan_id>/equipments', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo})
+api.add_resource(BodyPartsByPlanId, '/plans/<int:plan_id>/body-parts', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo})
 
 if __name__ == '__main__':
     app.run(debug=True)
