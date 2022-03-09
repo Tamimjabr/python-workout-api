@@ -25,4 +25,11 @@ class ExercisesByPlanId(Resource):
         return exercises, 200
 
 
+class EquipmentsByPlanId(Resource):
+    def __init__(self, in_exercise_plan_repo):
+        self.in_exercise_plan_repo = in_exercise_plan_repo
 
+    def get(self, plan_id):
+        exercises = self.in_exercise_plan_repo.list_equipments_needed_in_plan(plan_id)
+
+        return exercises, 200
