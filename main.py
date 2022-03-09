@@ -11,7 +11,7 @@ sql_db_config.connect_db()
 
 # todo: to call from controller
 print(in_exercise_plan_repo.list_exercises_in_plan(1))
-print(in_exercise_plan_repo.list_equipments_needed_in_plan(1) )
+print(in_exercise_plan_repo.list_equipments_needed_in_plan(1))
 print(in_exercise_plan_repo.list_percentage_of_body_parts_in_plan(1))
+print(plans_repo.list_all_plans())
 print('done')
-

@@ -23,3 +23,10 @@ class Plans:
                 print(e)
 
         print('Exercise plans inserted successfully')
+
+    def list_all_plans(self):
+        list_all_plans_query = '''SELECT id, name, duration_minutes
+                                FROM plans'''
+
+        self.cursor.execute(list_all_plans_query)
+        return self.cursor.fetchall()
