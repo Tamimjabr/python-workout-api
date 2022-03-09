@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import errorcode
 from models.plans import create_plans_table
-from models.exercises import create_exercises_table
+from models.exercises import create_exercises_table, create_data_saver_view
 from models.in_exercise_plan import create_in_exercise_plan_table
 
 load_dotenv()
@@ -28,6 +28,7 @@ class SqlDbConfig:
                 create_plans_table(self.cursor)
                 create_exercises_table(self.cursor)
                 create_in_exercise_plan_table(self.cursor)
+                create_data_saver_view(self.cursor)
                 self.exercises_repo.insert_exercises()
                 self.plans_repo.insert_plans()
                 self.in_exercise_plan_repo.insert_in_exercise_plan_relation()
