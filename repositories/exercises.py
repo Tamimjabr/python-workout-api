@@ -25,3 +25,4 @@ class Exercises:
                 print(e)
 
         print('Exercises inserted successfully')
+

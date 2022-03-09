@@ -29,6 +29,13 @@ class InExercisePlan:
         self.cursor.execute(list_exercises_in_plan_query)
         return self.cursor.fetchall()
 
+    def list_exercises_in_plan_data_saver_view(self, plan_id):
+        list_exercises_in_plan_data_saver_view_query = '''SELECT DataSaver.* FROM DataSaver
+                                                        JOIN in_exercise_plan ON in_exercise_plan.exercise_id = DataSaver.id
+                                                        WHERE in_exercise_plan.plan_id = {}'''.format(plan_id)
+        self.cursor.execute(list_exercises_in_plan_data_saver_view_query)
+        return self.cursor.fetchall()
+
     def list_equipments_needed_in_plan(self, plan_id):
         list_equipments_needed_in_plan_query = '''SELECT DISTINCT exercises.equipment_type
                                                 FROM in_exercise_plan
