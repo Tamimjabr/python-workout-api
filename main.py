@@ -24,8 +24,8 @@ api.add_resource(ExercisesByPlanId, '/plans/<int:plan_id>/exercises', resource_c
 api.add_resource(EquipmentsByPlanId, '/plans/<int:plan_id>/equipments', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo})
 api.add_resource(BodyPartsByPlanId, '/plans/<int:plan_id>/body-parts', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+app.run(debug=True)
 
 
 sql_db_config.close_database()
