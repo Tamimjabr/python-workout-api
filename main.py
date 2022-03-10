@@ -1,10 +1,12 @@
 from flask import Flask, request
+from flask_cors import CORS
 from flask_restful import Api, Resource, reqparse, abort
 from configs.sql_db_config import SqlDbConfig
 from controllers.workout_controller import Plans as PlansController, ExercisesByPlanId
 from repositories.plans import Plans
 from repositories.exercises import Exercises
 from repositories.in_exercise_plan import InExercisePlan
+
 
 exercises_repo = Exercises()
 plans_repo = Plans()
@@ -13,6 +15,7 @@ sql_db_config = SqlDbConfig(plans_repo, exercises_repo, in_exercise_plan_repo)
 sql_db_config.connect_db()
 
 app = Flask(__name__)
+CORS(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
 
 # todo: to call from controller
