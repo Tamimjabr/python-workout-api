@@ -18,13 +18,6 @@ app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
 
-# todo: to call from controller
-print(in_exercise_plan_repo.list_exercises_in_plan(1))
-print(in_exercise_plan_repo.list_equipments_needed_in_plan(1))
-print(in_exercise_plan_repo.list_percentage_of_body_parts_in_plan(1))
-print(plans_repo.list_all_plans())
-print(in_exercise_plan_repo.list_exercises_in_plan_data_saver_view(2))
-print('done')
 
 api.add_resource(PlansController, '/plans', resource_class_kwargs={'plans_repo': plans_repo})
 api.add_resource(ExercisesByPlanId, '/plans/<int:plan_id>/exercises', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo})
@@ -33,3 +26,6 @@ api.add_resource(BodyPartsByPlanId, '/plans/<int:plan_id>/body-parts', resource_
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+sql_db_config.close_database()

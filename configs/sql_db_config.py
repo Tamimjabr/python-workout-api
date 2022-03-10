@@ -59,3 +59,7 @@ class SqlDbConfig:
         self.cursor.execute("CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(self.DB_NAME))
         self.cnx.database = self.DB_NAME
         print("Database {} is created".format(self.DB_NAME))
+
+    def close_database(self):
+        self.cnx.close()
+        self.cursor.close()
