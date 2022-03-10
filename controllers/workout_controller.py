@@ -1,5 +1,6 @@
+import simplejson as json
 from flask_restful import Resource
-from flask import request
+from flask import request, make_response
 
 
 class Plans(Resource):
@@ -25,4 +26,22 @@ class ExercisesByPlanId(Resource):
         return exercises, 200
 
 
+class EquipmentsByPlanId(Resource):
+    def __init__(self, in_exercise_plan_repo):
+        self.in_exercise_plan_repo = in_exercise_plan_repo
 
+    def get(self, plan_id):
+        equipments = self.in_exercise_plan_repo.list_equipments_needed_in_plan(plan_id)
+
+        return equipments, 200
+
+
+class BodyPartsByPlanId(Resource):
+    def __init__(self, in_exercise_plan_repo):
+        self.in_exercise_plan_repo = in_exercise_plan_repo
+
+    def get(self, plan_id):
+        body_parts_percentage = self.in_exercise_plan_repo.list_percentage_of_body_parts_in_plan(plan_id)
+        print(body_parts_percentage)
+
+        return make_response(json.dumps(body_parts_percentage, use_decimal=True), 200)
