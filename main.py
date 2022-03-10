@@ -26,7 +26,7 @@ api.add_resource(EquipmentsByPlanId, '/plans/<int:plan_id>/equipments', resource
 api.add_resource(BodyPartsByPlanId, '/plans/<int:plan_id>/body-parts', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=os.getenv("PORT", 5000))
+    app.run(debug=True, port=os.getenv("PORT", 5000), host='0.0.0.0')
 
 
 sql_db_config.close_database()
