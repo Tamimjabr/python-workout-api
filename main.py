@@ -6,6 +6,7 @@ from controllers.workout_controller import Plans as PlansController, ExercisesBy
 from repositories.plans import Plans
 from repositories.exercises import Exercises
 from repositories.in_exercise_plan import InExercisePlan
+import os
 
 
 exercises_repo = Exercises()
@@ -25,7 +26,7 @@ api.add_resource(EquipmentsByPlanId, '/plans/<int:plan_id>/equipments', resource
 api.add_resource(BodyPartsByPlanId, '/plans/<int:plan_id>/body-parts', resource_class_kwargs={'in_exercise_plan_repo': in_exercise_plan_repo})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=os.getenv("PORT", 5000))
 
 
 sql_db_config.close_database()
