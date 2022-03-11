@@ -1,0 +1,1 @@
+To be able to start the API server, you have to install the dependencies in requirement.txt provided in the project using pip, as well as create “.env” file and provide the values for the keys in “.env.example” file to be able to connect to the DB, then you can start the server using “python main.py”
